@@ -330,13 +330,15 @@ onkeydown="if(event.key==='Enter') generateNames()"
 <section class="section">
 
 <h2>✨ Generated Names</h2>
-<input
+
+  <input
   type="text"
   id="searchInput"
   placeholder="🔍 Search generated names..."
   oninput="searchNames()"
   style="width:100%;margin-bottom:15px;"
 >
+  
 <div class="results" id="results">
 <div class="empty">
 Enter a name above and press Generate.
@@ -609,6 +611,7 @@ nameLibrary[letter]
 .join("");
 
 }
+  
 function searchNames(){
 
     let search =
@@ -627,6 +630,7 @@ function searchNames(){
 
     });
 }
+  
 </script>
 
 </body>
