@@ -739,22 +739,6 @@ function showFavorites(){
 
 showFavorites();
 
-const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-
-const lettersBox = document.getElementById("letters");
-
-alphabet.split("").forEach(letter => {
-  const button = document.createElement("button");
-  button.className = "letter";
-  button.textContent = letter;
-
-  button.onclick = function() {
-    document.getElementById("library").innerHTML =
-      "<h3>🔥 " + letter + " Names</h3>";
-  };
-
-  lettersBox.appendChild(button);
-});
   
 </script>
 
