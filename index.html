@@ -622,46 +622,28 @@ ${letter}
 
 document.getElementById("letters").innerHTML=lettersHTML;
 
-const nameLibrary={
-A:["Alpha","Ace","Angel","Apex","Arrow"],
-B:["Blaze","Boss","Beast","Blade","Bunny"],
-C:["Captain","Chaos","Cobra","Crown","Cyber"],
-D:["Demon","Dragon","Dark","Duke","Destroyer"],
-E:["Elite","Eagle","Echo","Eternal","Empire"],
-F:["Falcon","Fire","Fury","Frost","Flash"],
-G:["Ghost","God","Glory","Giant","Gamer"],
-H:["Hunter","Hero","Hawk","Hades","Hyper"],
-I:["Inferno","Ice","Icon","Immortal","Iron"],
-J:["Joker","Jade","Justice","Jungle","Jet"],
-K:["King","Knight","Killer","Karma","Kingdom"],
-L:["Legend","Lion","Lord","Lucky","Lunar"],
-M:["Master","Mafia","Magic","Monster","Mystic"],
-N:["Ninja","Night","Nova","Noble","Nexus"],
-O:["Omega","Oracle","Onyx","Overlord","Orbit"],
-P:["Phoenix","Prince","Phantom","Pro","Predator"],
-Q:["Queen","Quick","Quest","Quantum","Quasar"],
-R:["Raven","Royal","Reaper","Rider","Rogue"],
-S:["Shadow","Sniper","Storm","Savage","Sultan"],
-T:["Titan","Tiger","Thunder","Toxic","Trooper"],
-U:["Ultimate","Ultra","Unity","Urban","Unknown"],
-V:["Venom","Viper","Victory","Vortex","Vampire"],
-W:["Warrior","Wolf","Winner","Wizard","Wild"],
-X:["Xeno","Xtreme","Xavier","Xpress","XForce"],
-Y:["Yeti","Young","Yolo","Yankee","Yellow"],
-Z:["Zero","Zeus","Zombie","Zenith","Zone"]
-};
 
 function showLetter(letter){
 
-let library=document.getElementById("library");
+let library = document.getElementById("library");
 
 library.classList.add("show");
 
-library.innerHTML=
-`<h3>Names starting with ${letter}</h3>`+
-nameLibrary[letter]
-.map(name=>`<span class="library-card">${name}</span>`)
-.join("");
+let names = "";
+
+for(let i = 1; i <= 1000; i++){
+
+  names += `
+    <span class="library-card">
+      ${letter}Legend${i}
+    </span>
+  `;
+
+}
+
+library.innerHTML =
+`<h3>🔥 ${letter} Names — 1000 Names</h3>` +
+names;
 
 }
   
