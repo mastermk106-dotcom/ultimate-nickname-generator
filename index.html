@@ -352,14 +352,17 @@ onkeydown="if(event.key==='Enter') generateNames()"
 
 <h2>✨ Generated Names</h2>
 
-  <input
+  
+<h3 style="margin:15px 0 10px;">🔍 Search Names</h3>
+
+<input
   type="text"
   id="searchInput"
-  placeholder="🔍 Search generated names..."
+  placeholder="Search generated names..."
   oninput="searchNames()"
   style="width:100%;margin-bottom:15px;"
 >
-  
+
 <div class="results" id="results">
 <div class="empty">
 Enter a name above and press Generate.
@@ -374,7 +377,7 @@ Enter a name above and press Generate.
     <p>No favorite names yet ❤️</p>
   </div>
 </section>
-
+  
 <footer>
 © 2026 NickStyle — Stylish Name Generator
 </footer>
@@ -486,7 +489,7 @@ fancy:[
 ]
 
 };
-  
+
 const randomNames=[
 "Shadow","Legend","King","Queen","Warrior",
 "Phantom","Dragon","Hunter","Venom","Titan",
@@ -521,9 +524,11 @@ output+=`
 📋 Copy
 </button>
 
+
 <button class="favorite" onclick="favoriteName(this)">
 ❤️ Favorite
 </button>
+
 
 </div>
 `;
@@ -533,7 +538,7 @@ output+=`
 document.getElementById("results").innerHTML=output;
 
 }
-  
+
 function favoriteName(button){
 
     let name = button.parentElement
@@ -553,8 +558,8 @@ function favoriteName(button){
     } else {
         button.innerText = "✅ Already Saved";
     }
-}  
-
+}
+  
 function copyName(button){
 
 let text=button.parentElement
@@ -618,10 +623,42 @@ ${letter}
 </div>
 `;
 
-}
+  }
 
 document.getElementById("letters").innerHTML=lettersHTML;
 
+const nameLibrary = {};
+
+const nameParts = [
+"Alpha","Ace","Angel","Apex","Arrow","Blaze","Boss","Beast",
+"Blade","Captain","Chaos","Cobra","Crown","Cyber","Demon",
+"Dragon","Dark","Duke","Elite","Eagle","Echo","Eternal",
+"Falcon","Fire","Fury","Frost","Flash","Ghost","Glory",
+"Giant","Hunter","Hero","Hawk","Hyper","Inferno","Ice",
+"Icon","Immortal","Iron","Joker","Jade","Justice","King",
+"Knight","Killer","Karma","Legend","Lion","Lord","Lucky",
+"Master","Mafia","Magic","Monster","Mystic","Ninja","Night",
+"Nova","Noble","Omega","Oracle","Onyx","Overlord","Phoenix",
+"Prince","Phantom","Predator","Raven","Royal","Reaper",
+"Rider","Rogue","Shadow","Sniper","Storm","Savage","Titan",
+"Tiger","Thunder","Toxic","Warrior","Wolf","Winner","Wizard",
+"Venom","Viper","Victory","Vortex","Yeti","Young","Zeus","Zenith"
+];
+
+for (let letter of alphabet) {
+
+  nameLibrary[letter] = [];
+
+  for (let i = 1; i <= 1000; i++) {
+
+    let part = nameParts[(i - 1) % nameParts.length];
+
+    nameLibrary[letter].push(
+      letter + part + i
+    );
+
+  }
+}
 
 function showLetter(letter){
 
@@ -646,7 +683,6 @@ library.innerHTML =
 names;
 
 }
-  
 function searchNames(){
 
     let search =
@@ -666,7 +702,7 @@ function searchNames(){
     });
 }
 
-  function favoriteName(button){
+function favoriteName(button){
 
     let name = button.parentElement
         .querySelector(".nickname")
@@ -710,17 +746,11 @@ function showFavorites(){
             <button class="copy" onclick="navigator.clipboard.writeText('${name}')">
                 📋 Copy
             </button>
-
-            <button class="favorite" onclick="favoriteName(this)">
-❤️ Favorite
-</button>
-
         </div>
     `).join("");
 }
 
 showFavorites();
-
   
 </script>
 
