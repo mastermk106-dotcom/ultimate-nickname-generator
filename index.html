@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Ultimate Nickname Generator</title>
+
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+body{
+    font-family:Arial,sans-serif;
+    background:
+      radial-gradient(circle at top,#24204a 0%,#0b0b14 45%,#050508 100%);
+    color:white;
+    min-height:100vh;
+}
+
+header{
+    padding:25px 15px;
+    text-align:center;
+    border-bottom:1px solid #292940;
+    background:rgba(10,10,20,.75);
+}
+
+.logo{
+    font-size:30px;
+    font-weight:bold;
+    color:#a855f7;
+    text-shadow:0 0 20px #8b5cf6;
+}
+
+header p{
+    color:#aaa;
+    margin-top:8px;
+}
+
+.hero{
+    max-width:900px;
+    margin:auto;
+    text-align:center;
+    padding:55px 20px 30px;
+}
+
+.hero h1{
+    font-size:46px;
+    margin-bottom:15px;
+}
+
+.hero h1 span{
+    color:#a855f7;
+}
+
+.hero p{
+    color:#aaa;
+    font-size:17px;
+}
+
+.generator{
+    max-width:700px;
+    margin:25px auto;
+    padding:25px;
+    background:rgba(255,255,255,.06);
+    border:1px solid #393952;
+    border-radius:18px;
+    box-shadow:0 0 35px rgba(139,92,246,.12);
+}
+
+.input-box{
+    display:flex;
+    gap:10px;
+}
+
+input{
+    flex:1;
+    padding:15px;
+    border-radius:10px;
+    border:1px solid #44445c;
+    background:#11111c;
+    color:white;
+    font-size:16px;
+    outline:none;
+}
+
+input:focus{
+    border-color:#a855f7;
+    box-shadow:0 0 12px rgba(168,85,247,.3);
+}
+
+button{
+    border:0;
+    border-radius:10px;
+    padding:14px 20px;
+    background:linear-gradient(135deg,#8b5cf6,#d946ef);
+    color:white;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+button:hover{
+    transform:translateY(-2px);
+    box-shadow:0 0 18px rgba(168,85,247,.5);
+}
+
+.categories{
+    max-width:1000px;
+    margin:25px auto;
+    padding:0 20px;
+}
+
+.categories h2{
+    margin-bottom:15px;
+}
+
+.category-list{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+}
+
+.category{
+    padding:10px 15px;
+    border:1px solid #393952;
+    border-radius:20px;
+    background:#11111c;
+    cursor:pointer;
+    color:#ccc;
+}
+
+.category:hover,
+.category.active{
+    background:#8b5cf6;
+    color:white;
+}
+
+.results{
+    max-width:1000px;
+    margin:30px auto;
+    padding:0 20px 50px;
+}
+
+.results h2{
+    margin-bottom:15px;
+}
+
+.name-card{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:15px;
+    background:#11111c;
+    border:1px solid #292940;
+    padding:16px;
+    margin:10px 0;
+    border-radius:12px;
+}
+
+.nickname{
+    font-size:20px;
+    word-break:break-word;
+}
+
+.copy-btn{
+    padding:9px 14px;
+    font-size:14px;
+}
+
+footer{
+    text-align:center;
+    padding:25px;
+    color:#777;
+    border-top:1px solid #222235;
+}
+
+@media(max-width:600px){
+
+    .hero h1{
+        font-size:32px;
+    }
+
+    .input-box{
+        flex-direction:column;
+    }
+
+    .name-card{
+        align-items:flex-start;
+        flex-direction:column;
+    }
+
+    .copy-btn{
+        width:100%;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">✦ NickStyle</div>
+    <p>Ultimate Stylish Name Generator</p>
+</header>
+
+<section class="hero">
+    <h1>Create <span>Legendary</span> Names</h1>
+    <p>Generate stylish names, gaming nicknames and creative text for anyone.</p>
+</section>
+
+<section class="generator">
+
+    <div class="input-box">
+        <input
+            type="text"
+            id="nameInput"
+            placeholder="Enter any name or word..."
+        >
+
+        <button onclick="generateNames()">
+            Generate
+        </button>
+    </div>
+
+</section>
+
+<section class="categories">
+
+    <h2>🔥 Categories</h2>
+
+    <div class="category-list">
+
+        <div class="category active" onclick="setCategory('all',this)">All</div>
+        <div class="category" onclick="setCategory('legendary',this)">👑 Legendary</div>
+        <div class="category" onclick="setCategory('gaming',this)">🎮 Gaming</div>
+        <div class="category" onclick="setCategory('attitude',this)">😈 Attitude</div>
+        <div class="category" onclick="setCategory('cool',this)">😎 Cool</div>
+        <div class="category" onclick="setCategory('love',this)">❤️ Love</div>
+        <div class="category" onclick="setCategory('vip',this)">💎 VIP</div>
+        <div class="category" onclick="setCategory('fancy',this)">✨ Fancy</div>
+
+    </div>
+
+</section>
+
+<section class="results">
+
+    <h2>✨ Generated Names</h2>
+
+    <div id="results"></div>
+
+</section>
+
+<footer>
+    © 2026 NickStyle — Creative Name Generator
+</footer>
+
+<script>
+
+let currentCategory = "all";
+
+const styles = {
+
+all: [
+"꧁༺ {name} ༻꧂",
+"『 {name} 』",
+"亗 {name} 亗",
+"乂 {name} 乂",
+"★彡 {name} 彡★",
+"♛ {name} ♛",
+"ツ {name} ツ",
+"×͜× {name}",
+"么 {name} 么",
+"『ᴾᴿᴼ』 {name}",
+"༒ {name} ༒",
+"⚡ {name} ⚡"
+],
+
+legendary: [
+"꧁༺👑 {name} 👑༻꧂",
+"♛『 {name} 』♛",
+"👑 亗 {name} 亗 👑",
+"༺⚡ {name} ⚡༻"
+],
+
+gaming: [
+"乂🎮 {name} 🎮乂",
+"『ᴳᴬᴹᴱᴿ』 {name}",
+"⚔️ {name} ⚔️",
+"亗 {name} Gaming 亗"
+],
+
+attitude: [
+"😈『 {name} 』😈",
+"乂 {name} 乂",
+"☠ {name} ☠",
+"༒☬ {name} ☬༒"
+],
+
+cool: [
+"『😎 {name} 😎』",
+"★ {name} ★",
+"ツ {name} ツ",
+"⚡ {name} ⚡"
+],
+
+love: [
+"♡ {name} ♡",
+"❤️『 {name} 』❤️",
+"♥︎ {name} ♥︎",
+"💖 {name} 💖"
+],
+
+vip: [
+"💎 VIP {name} 💎",
+"♛VIP♛ {name}",
+"👑 {name} 👑",
+"༺💎 {name} 💎༻"
+],
+
+fancy: [
+"꧁ {name} ꧂",
+"『 {name} 』",
+"༺ {name} ༻",
+"★彡 {name} 彡★"
+]
+
+};
+
+function generateNames(){
+
+    const input =
+        document.getElementById("nameInput").value.trim();
+
+    if(!input){
+        alert("Please enter a name or word!");
+        return;
+    }
+
+    let selected = styles[currentCategory];
+
+    let output = "";
+
+    selected.forEach(style => {
+
+        let finalName =
+            style.replace("{name}",input);
+
+        output += `
+            <div class="name-card">
+
+                <span class="nickname">
+                    ${finalName}
+                </span>
+
+                <button
+                    class="copy-btn"
+                    onclick="copyName(this)"
+                >
+                    📋 Copy
+                </button>
+
+            </div>
+        `;
+    });
+
+    document.getElementById("results").innerHTML = output;
+}
+
+function copyName(button){
+
+    const text =
+        button.parentElement
+        .querySelector(".nickname")
+        .innerText;
+
+    navigator.clipboard.writeText(text);
+
+    button.innerText = "✅ Copied!";
+
+    setTimeout(() => {
+        button.innerText = "📋 Copy";
+    },1200);
+}
+
+function setCategory(category,element){
+
+    currentCategory = category;
+
+    document
+        .querySelectorAll(".category")
+        .forEach(item => item.classList.remove("active"));
+
+    element.classList.add("active");
+
+    if(document.getElementById("nameInput").value.trim()){
+        generateNames();
+    }
+}
+
+</script>
+
+</body>
+</html>
