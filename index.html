@@ -742,15 +742,40 @@ showFavorites();
 const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
 const lettersBox = document.getElementById("letters");
+const library = document.getElementById("library");
+
+const styles = [
+  "Legend", "Shadow", "King", "Warrior", "Hunter",
+  "Master", "Ghost", "Ninja", "Storm", "Fire",
+  "Dragon", "Beast", "Hero", "Pro", "Star",
+  "Dark", "Royal", "Elite", "Titan", "Wolf"
+];
 
 alphabet.split("").forEach(letter => {
   const button = document.createElement("button");
+
   button.className = "letter";
   button.textContent = letter;
 
-  button.onclick = function() {
-    document.getElementById("library").innerHTML =
-      "<h3>🔥 " + letter + " Names</h3>";
+  button.onclick = function () {
+    library.innerHTML = "";
+
+    const title = document.createElement("h3");
+    title.textContent = "🔥 " + letter + " Names";
+    library.appendChild(title);
+
+    for (let i = 0; i < 1000; i++) {
+      const style = styles[i % styles.length];
+      const number = i + 1;
+
+      const name = letter + style + number;
+
+      const div = document.createElement("div");
+      div.className = "generated-name";
+      div.textContent = name;
+
+      library.appendChild(div);
+    }
   };
 
   lettersBox.appendChild(button);
