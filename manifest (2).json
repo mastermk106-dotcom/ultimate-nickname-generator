@@ -1,0 +1,13 @@
+{
+  "background_color": "#ffffff",
+  "dir": "ltr",
+  "display": "standalone",
+  "name": "NickStyle - Ultimate Nickname Generator",
+  "orientation": "any",
+  "scope": "/",
+  "short_name": "NickStyle",
+  "start_url": "/",
+  "theme_color": "#ffffff",
+  "id": "nickstyle",
+  "description": "Ultimate stylish nickname and name generator"
+}
