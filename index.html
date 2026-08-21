@@ -1,15 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <meta name="google-site-verification" content="AvCP9gb1o77sobdHLl43lDdHFEVsXqKgfAk3sTAwgwg" />
+
 <title>NickStyle - Ultimate Nickname Generator</title>
 
 <link rel="manifest" href="manifest.json">
-  
+
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
+
+*{
+box-sizing:border-box;
+margin:0;
+padding:0;
+}
+
+html,body{
+margin:0;
+padding:0;
+width:100%;
+overflow-x:hidden;
+}
 
 body{
 font-family:Arial,sans-serif;
@@ -36,7 +52,10 @@ color:#b45cff;
 text-shadow:0 0 20px #8b5cf6;
 }
 
-header p{color:#aaa;margin-top:7px}
+header p{
+color:#aaa;
+margin-top:7px;
+}
 
 .hero{
 text-align:center;
@@ -48,7 +67,9 @@ font-size:48px;
 margin-bottom:14px;
 }
 
-.hero h1 span{color:#b45cff}
+.hero h1 span{
+color:#b45cff;
+}
 
 .hero p{
 color:#aaa;
@@ -133,7 +154,8 @@ color:#ccc;
 cursor:pointer;
 }
 
-.category:hover,.category.active{
+.category:hover,
+.category.active{
 background:#8b5cf6;
 color:#fff;
 }
@@ -153,6 +175,8 @@ border-radius:13px;
 background:#11111b;
 border:1px solid #2f2a45;
 transition:.2s;
+width:100%;
+max-width:100%;
 }
 
 .name-card:hover{
@@ -166,6 +190,12 @@ word-break:break-word;
 }
 
 .copy{
+padding:9px 14px;
+font-size:14px;
+white-space:nowrap;
+}
+
+.favorite{
 padding:9px 14px;
 font-size:14px;
 white-space:nowrap;
@@ -228,47 +258,40 @@ border-top:1px solid #252237;
 
 @media(max-width:600px){
 
-.hero h1{font-size:34px}
+.hero h1{
+font-size:34px;
+}
 
-.inputbox{flex-direction:column}
+.inputbox{
+flex-direction:column;
+}
 
 .name-card{
 flex-direction:column;
 align-items:flex-start;
 }
 
-.copy{width:100%}
+.copy,
+.favorite{
+width:100%;
 }
 
-* {
-  box-sizing: border-box;
 }
 
-html, body {
-  margin: 0;
-  padding: 0;
-  width: 100%;
-  overflow-x: hidden;
-}
-
-body {
-  min-width: 0;
-}
-
-.name-card {
-  width: 100%;
-  max-width: 100%;
-}
-  
 </style>
+
 </head>
 
 <body>
 
 <header>
+
 <div class="logo">✦ NickStyle</div>
+
 <p>Ultimate Stylish Name Generator</p>
+
 </header>
+
 
 <section class="hero">
 
@@ -279,6 +302,7 @@ Turn any name or word into stylish, cool and unique names.
 </p>
 
 </section>
+
 
 <section class="generator">
 
@@ -291,9 +315,12 @@ placeholder="Enter any name or word..."
 onkeydown="if(event.key==='Enter') generateNames()"
 >
 
-<button onclick="generateNames()">Generate</button>
+<button onclick="generateNames()">
+Generate
+</button>
 
 </div>
+
 
 <button class="random" onclick="randomName()">
 🎲 Random Legendary Name
@@ -301,13 +328,16 @@ onkeydown="if(event.key==='Enter') generateNames()"
 
 </section>
 
+
 <section class="section">
 
 <h2>🔥 Categories</h2>
 
 <div class="categories">
 
-<div class="category active" onclick="setCategory('all',this)">All</div>
+<div class="category active" onclick="setCategory('all',this)">
+All
+</div>
 
 <div class="category" onclick="setCategory('legendary',this)">
 👑 Legendary
@@ -341,6 +371,7 @@ onkeydown="if(event.key==='Enter') generateNames()"
 
 </section>
 
+
 <section class="section">
 
 <h2>🔤 A–Z Name Library</h2>
@@ -351,43 +382,62 @@ onkeydown="if(event.key==='Enter') generateNames()"
 
 </section>
 
+
 <section class="section">
 
 <h2>✨ Generated Names</h2>
 
-  
-<h3 style="margin:15px 0 10px;">🔍 Search Names</h3>
+<h3 style="margin:15px 0 10px;">
+🔍 Search Names
+</h3>
 
 <input
-  type="text"
-  id="searchInput"
-  placeholder="Search generated names..."
-  oninput="searchNames()"
-  style="width:100%;margin-bottom:15px;"
+type="text"
+id="searchInput"
+placeholder="Search generated names..."
+oninput="searchNames()"
+style="width:100%;margin-bottom:15px;"
 >
 
 <div class="results" id="results">
+
 <div class="empty">
 Enter a name above and press Generate.
 </div>
+
 </div>
 
 </section>
 
+
 <section class="section">
-  <h2>❤️ My Favorites</h2>
-  <div id="favorites">
-    <p>No favorite names yet ❤️</p>
-  </div>
+
+<h2>❤️ My Favorites</h2>
+
+<div id="favorites">
+
+<p>No favorite names yet ❤️</p>
+
+</div>
+
 </section>
-  
+
+
 <footer>
+
 © 2026 NickStyle — Stylish Name Generator
+
 </footer>
+
+
+<!-- 26,000 A-Z names -->
+<script src="names.js"></script>
+
 
 <script>
 
 let currentCategory="all";
+
 
 const styles={
 
@@ -493,268 +543,371 @@ fancy:[
 
 };
 
+
 const randomNames=[
-"Shadow","Legend","King","Queen","Warrior",
-"Phantom","Dragon","Hunter","Venom","Titan",
-"Storm","Blaze","Ghost","Knight","Demon",
-"Sniper","Raven","Wolf","Lion","Falcon",
-"Phoenix","Reaper","Ninja","Master","Royal"
+
+"Shadow",
+"Legend",
+"King",
+"Queen",
+"Warrior",
+"Phantom",
+"Dragon",
+"Hunter",
+"Venom",
+"Titan",
+"Storm",
+"Blaze",
+"Ghost",
+"Knight",
+"Demon",
+"Sniper",
+"Raven",
+"Wolf",
+"Lion",
+"Falcon",
+"Phoenix",
+"Reaper",
+"Ninja",
+"Master",
+"Royal"
+
 ];
+
 
 function generateNames(){
 
-let input=document.getElementById("nameInput").value.trim();
+let input=document
+.getElementById("nameInput")
+.value
+.trim();
 
 if(!input){
+
 alert("Please enter a name or word!");
+
 return;
+
 }
 
 let selected=styles[currentCategory];
 
 let output="";
 
+
 selected.forEach(style=>{
 
 let finalName=style.replace("{name}",input);
 
 output+=`
+
 <div class="name-card">
 
-<span class="nickname">${finalName}</span>
+<span class="nickname">
+${finalName}
+</span>
 
 <button class="copy" onclick="copyName(this)">
 📋 Copy
 </button>
 
-
 <button class="favorite" onclick="favoriteName(this)">
 ❤️ Favorite
 </button>
 
-
 </div>
+
 `;
 
 });
+
 
 document.getElementById("results").innerHTML=output;
 
 }
 
-function favoriteName(button){
 
-    let name = button.parentElement
-        .querySelector(".nickname").innerText;
-
-    let favorites =
-        JSON.parse(localStorage.getItem("favorites")) || [];
-
-    if(!favorites.includes(name)){
-        favorites.push(name);
-        localStorage.setItem(
-            "favorites",
-            JSON.stringify(favorites)
-        );
-
-        button.innerText = "❤️ Saved!";
-    } else {
-        button.innerText = "✅ Already Saved";
-    }
-}
-  
 function copyName(button){
 
-let text=button.parentElement
-.querySelector(".nickname").innerText;
+let text=button
+.parentElement
+.querySelector(".nickname")
+.innerText;
 
 navigator.clipboard.writeText(text);
 
 button.innerText="✅ Copied!";
 
 setTimeout(()=>{
+
 button.innerText="📋 Copy";
+
 },1200);
 
 }
+
+
+function favoriteName(button){
+
+let name=button
+.parentElement
+.querySelector(".nickname")
+.innerText;
+
+let favorites=
+JSON.parse(
+localStorage.getItem("favorites")
+)||[];
+
+
+if(!favorites.includes(name)){
+
+favorites.push(name);
+
+localStorage.setItem(
+"favorites",
+JSON.stringify(favorites)
+);
+
+button.innerText="❤️ Saved!";
+
+}else{
+
+button.innerText="✅ Already Saved";
+
+}
+
+showFavorites();
+
+}
+
 
 function setCategory(category,element){
 
 currentCategory=category;
 
-document.querySelectorAll(".category")
-.forEach(x=>x.classList.remove("active"));
+document
+.querySelectorAll(".category")
+.forEach(x=>
+x.classList.remove("active")
+);
 
 element.classList.add("active");
 
-if(document.getElementById("nameInput").value.trim()){
+
+if(
+document
+.getElementById("nameInput")
+.value
+.trim()
+){
+
 generateNames();
+
 }
 
 }
+
 
 function randomName(){
 
 let name=randomNames[
-Math.floor(Math.random()*randomNames.length)
+Math.floor(
+Math.random()*randomNames.length
+)
 ];
+
 
 document.getElementById("nameInput").value=name;
 
 currentCategory="legendary";
 
-document.querySelectorAll(".category")
-.forEach(x=>x.classList.remove("active"));
 
-document.querySelectorAll(".category")[1]
+document
+.querySelectorAll(".category")
+.forEach(x=>
+x.classList.remove("active")
+);
+
+
+document
+.querySelectorAll(".category")[1]
 .classList.add("active");
+
 
 generateNames();
 
 }
 
+
+/* A-Z LETTER BUTTONS */
+
 const alphabet="ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
 let lettersHTML="";
 
+
 for(let letter of alphabet){
 
 lettersHTML+=`
-<div class="letter"
-onclick="showLetter('${letter}')">
+
+<div
+class="letter"
+onclick="showLetter('${letter}')"
+>
+
 ${letter}
+
 </div>
+
 `;
 
-  }
-
-document.getElementById("letters").innerHTML=lettersHTML;
-
-const nameLibrary = {};
-
-const nameParts = [
-"Alpha","Ace","Angel","Apex","Arrow","Blaze","Boss","Beast",
-"Blade","Captain","Chaos","Cobra","Crown","Cyber","Demon",
-"Dragon","Dark","Duke","Elite","Eagle","Echo","Eternal",
-"Falcon","Fire","Fury","Frost","Flash","Ghost","Glory",
-"Giant","Hunter","Hero","Hawk","Hyper","Inferno","Ice",
-"Icon","Immortal","Iron","Joker","Jade","Justice","King",
-"Knight","Killer","Karma","Legend","Lion","Lord","Lucky",
-"Master","Mafia","Magic","Monster","Mystic","Ninja","Night",
-"Nova","Noble","Omega","Oracle","Onyx","Overlord","Phoenix",
-"Prince","Phantom","Predator","Raven","Royal","Reaper",
-"Rider","Rogue","Shadow","Sniper","Storm","Savage","Titan",
-"Tiger","Thunder","Toxic","Warrior","Wolf","Winner","Wizard",
-"Venom","Viper","Victory","Vortex","Yeti","Young","Zeus","Zenith"
-];
-
-for (let letter of alphabet) {
-
-  nameLibrary[letter] = [];
-
-  for (let i = 1; i <= 1000; i++) {
-
-    let part = nameParts[(i - 1) % nameParts.length];
-
-    nameLibrary[letter].push(
-      letter + part + i
-    );
-
-  }
 }
+
+
+document.getElementById("letters")
+.innerHTML=lettersHTML;
+
+
+/* A-Z LIBRARY */
 
 function showLetter(letter){
 
-let library = document.getElementById("library");
+let library=
+document.getElementById("library");
+
 
 library.classList.add("show");
 
-let names = "";
 
-for(let i = 1; i <= 1000; i++){
+if(
+typeof nameLibrary==="undefined" ||
+!nameLibrary[letter]
+){
 
-  names += `
-    <span class="library-card">
-      ${letter}Legend${i}
-    </span>
-  `;
+library.innerHTML=`
+
+<h3>🔥 ${letter} Names</h3>
+
+<div class="empty">
+Names are not loaded yet.
+</div>
+
+`;
+
+return;
 
 }
 
-library.innerHTML =
-`<h3>🔥 ${letter} Names — 1000 Names</h3>` +
-names;
+
+let names=nameLibrary[letter];
+
+let namesHTML="";
+
+
+names.forEach(name=>{
+
+namesHTML+=`
+
+<span class="library-card">
+${name}
+</span>
+
+`;
+
+});
+
+
+library.innerHTML=
+
+`<h3>🔥 ${letter} Names — ${names.length} Names</h3>`
++
+namesHTML;
 
 }
+
+
 function searchNames(){
 
-    let search =
-        document.getElementById("searchInput")
-        .value.toLowerCase();
+let search=
+document
+.getElementById("searchInput")
+.value
+.toLowerCase();
 
-    document.querySelectorAll(".name-card")
-    .forEach(card => {
 
-        let name =
-            card.querySelector(".nickname")
-            .innerText.toLowerCase();
+document
+.querySelectorAll(".name-card")
+.forEach(card=>{
 
-        card.style.display =
-            name.includes(search) ? "flex" : "none";
+let name=
+card
+.querySelector(".nickname")
+.innerText
+.toLowerCase();
 
-    });
+
+card.style.display=
+name.includes(search)
+?"flex"
+:"none";
+
+});
+
 }
 
-function favoriteName(button){
-
-    let name = button.parentElement
-        .querySelector(".nickname")
-        .innerText;
-
-    let favorites =
-        JSON.parse(localStorage.getItem("favorites")) || [];
-
-    if(!favorites.includes(name)){
-        favorites.push(name);
-        localStorage.setItem(
-            "favorites",
-            JSON.stringify(favorites)
-        );
-
-        button.innerText = "❤️ Saved!";
-    }else{
-        button.innerText = "✅ Already Saved";
-    }
-
-    showFavorites();
-}
 
 function showFavorites(){
 
-    let favorites =
-        JSON.parse(localStorage.getItem("favorites")) || [];
+let favorites=
+JSON.parse(
+localStorage.getItem("favorites")
+)||[];
 
-    let box = document.getElementById("favorites");
 
-    if(!box) return;
+let box=
+document.getElementById("favorites");
 
-    if(favorites.length === 0){
-        box.innerHTML = "No favorite names yet ❤️";
-        return;
-    }
 
-    box.innerHTML = favorites.map(name => `
-        <div class="name-card">
-            <span class="nickname">${name}</span>
-            <button class="copy" onclick="navigator.clipboard.writeText('${name}')">
-                📋 Copy
-            </button>
-        </div>
-    `).join("");
+if(!box)return;
+
+
+if(favorites.length===0){
+
+box.innerHTML=
+"<p>No favorite names yet ❤️</p>";
+
+return;
+
 }
 
+
+box.innerHTML=
+
+favorites.map(name=>`
+
+<div class="name-card">
+
+<span class="nickname">
+${name}
+</span>
+
+<button
+class="copy"
+onclick="navigator.clipboard.writeText(${JSON.stringify(name)})"
+>
+📋 Copy
+</button>
+
+</div>
+
+`).join("");
+
+}
+
+
 showFavorites();
-  
+
 </script>
 
 </body>
