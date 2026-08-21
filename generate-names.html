@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 <meta charset="UTF-8">
 <title>NickStyle Name Generator</title>
@@ -9,145 +9,91 @@
 
 <h2>NickStyle — 26,000 Name Generator</h2>
 
-<button onclick="generateLibrary()">
-Generate 26,000 Names
-</button>
+<button id="generateBtn">Generate 26,000 Names</button>
+
+<p id="status"></p>
 
 <a id="download" style="display:none;">
-Download names.js
+⬇️ Download names.js
 </a>
 
 <script>
 
-function generateLibrary(){
+document.getElementById("generateBtn").addEventListener("click", function(){
+
+document.getElementById("status").innerText =
+"Generating 26,000 names... Please wait.";
 
 const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
-/*
-  Special styles.
-  Har generated entry ka style combination
-  unique rakha jayega.
-*/
+const parts = [
+"Alpha","Ace","Angel","Apex","Arrow","Aura","Aurora",
+"Blaze","Blade","Bloom","Bolt","Boss","Brave","Crown",
+"Cyber","Dawn","Demon","Dragon","Dream","Eagle","Echo",
+"Elite","Ember","Falcon","Flash","Frost","Fury","Galaxy",
+"Ghost","Glory","Hawk","Hero","Hunter","Icon","Inferno",
+"Knight","Legend","Lion","Magic","Master","Meteor","Mystic",
+"Ninja","Nova","Omega","Oracle","Phantom","Phoenix","Raven",
+"Reaper","Royal","Shadow","Silver","Sniper","Spark","Storm",
+"Titan","Thunder","Tiger","Viper","Vision","Warrior","Wolf",
+"Wizard","Zenith"
+];
 
 const symbols = [
 "★","☆","✦","✧","✩","✪","✫","✬","✭","✮",
-"♔","♕","♚","♛","♜","♝","♞",
-"⚡","☄","☀","☾","☽","☯","☮","☘",
-"☠","☢","☣","✿","❀","❁","❂","❃",
-"❇","❈","❉","❊","❋","◆","◇","◈",
-"◉","○","●","▲","△","▼","▽",
-"✤","✥","✣","✢","✜","✚","✙",
-"✠","✟","♠","♡","♢","♣","♥","♦",
-"『","』","「","」","【","】","〖","〗",
-"༺","༻","꧁","꧂","乂","亗","〆","メ","ツ","么","彡"
+"♔","♕","♚","♛","⚡","☄","☀","☾","☽","☯",
+"☮","☘","☠","☢","✿","❀","❁","❂","❃","❇",
+"❈","❉","❊","❋","◆","◇","◈","◉","○","●",
+"▲","△","▼","▽","✤","✥","✣","✢","✜","✚",
+"✙","✠","✟","♠","♡","♢","♣","♥","♦","『",
+"』","「","」","【","】","〖","〗","༺","༻","꧁",
+"꧂","乂","亗","〆","メ","ツ","么","彡"
 ];
 
-/*
-  Number-free name parts
-*/
+let output = "const nameLibrary = {\n";
 
-const parts = [
+let used = new Set();
 
-"Alpha","Ace","Angel","Apex","Arrow",
-"Aura","Aurora","Blaze","Blade","Bloom",
-"Bolt","Boss","Brave","Crown","Cyber",
-"Dawn","Demon","Dragon","Dream","Eagle",
-"Echo","Elite","Ember","Falcon","Flash",
-"Frost","Fury","Galaxy","Ghost","Glory",
-"Hawk","Hero","Hunter","Icon","Inferno",
-"Knight","Legend","Lion","Magic","Master",
-"Meteor","Mystic","Ninja","Nova","Omega",
-"Oracle","Phantom","Phoenix","Raven","Reaper",
-"Royal","Shadow","Silver","Sniper","Spark",
-"Storm","Titan","Thunder","Tiger","Viper",
-"Vision","Warrior","Wolf","Wizard","Zenith"
-
-];
-
-const suffixes = [
-
-"Star","Fire","Sky","Wave","Wing",
-"Light","Rush","Soul","Force","Heart",
-"Spirit","Dream","Crown","Strike","Flame",
-"Storm","Frost","Glow","Legend","Royal",
-"Shadow","Knight","Hunter","Dragon","Phoenix",
-"Raven","Thunder","Blaze","Nova","Titan"
-
-];
-
-let usedNames = new Set();
-
-let output =
-"const nameLibrary = {\\n";
-
-let styleIndex = 0;
+let styleNumber = 0;
 
 for(let letter of alphabet){
 
-output += `  ${letter}: [\\n`;
+output += "  " + letter + ": [\n";
 
-let letterNames = [];
+let names = [];
 
 let i = 0;
 
-while(letterNames.length < 1000){
+while(names.length < 1000){
 
-let part =
-parts[(styleIndex + i) % parts.length];
+let part = parts[(i + letter.charCodeAt(0)) % parts.length];
 
-let suffix =
-suffixes[
-Math.floor((styleIndex + i) / parts.length)
-% suffixes.length
-];
+let symbol1 =
+symbols[styleNumber % symbols.length];
 
-let core =
-letter + part + suffix;
+let symbol2 =
+symbols[Math.floor(styleNumber / symbols.length) % symbols.length];
 
-/*
-  Unique special combination
-*/
+if(symbol1 === symbol2){
 
-let left =
-symbols[
-styleIndex % symbols.length
-];
-
-let right =
-symbols[
-Math.floor(styleIndex / symbols.length)
-% symbols.length
-];
-
-/*
-  Avoid identical left/right symbols
-*/
-
-if(left === right){
-
-right =
-symbols[
-(Math.floor(styleIndex / symbols.length) + 1)
-% symbols.length
-];
+symbol2 =
+symbols[(Math.floor(styleNumber / symbols.length) + 1) % symbols.length];
 
 }
 
-let finalName =
-left + core + right;
+let name =
+symbol1 +
+letter +
+part +
+symbol2;
 
-/*
-  Make absolutely sure
-  no duplicate occurs.
-*/
+if(!used.has(name)){
 
-if(!usedNames.has(finalName)){
+used.add(name);
 
-usedNames.add(finalName);
+names.push(name);
 
-letterNames.push(finalName);
-
-styleIndex++;
+styleNumber++;
 
 }
 
@@ -155,38 +101,32 @@ i++;
 
 }
 
-letterNames.forEach((name,index)=>{
-
-let comma =
-index < letterNames.length - 1
-? ","
-: "";
+for(let n = 0; n < names.length; n++){
 
 output +=
-`    ${JSON.stringify(name)}${comma}\\n`;
-
-});
-
-output +=
-`  ]${letter === "Z" ? "" : ","}\\n`;
+"    " +
+JSON.stringify(names[n]) +
+(n === names.length - 1 ? "" : ",") +
+"\n";
 
 }
 
 output +=
-"};\\n\\nwindow.nameLibrary = nameLibrary;\\n`;
+"  ]" +
+(letter === "Z" ? "" : ",") +
+"\n";
 
-/*
-  Download names.js
-*/
+}
 
-const blob =
-new Blob(
+output +=
+"};\n\nwindow.nameLibrary = nameLibrary;\n";
+
+const blob = new Blob(
 [output],
 {type:"application/javascript"}
 );
 
-const url =
-URL.createObjectURL(blob);
+const url = URL.createObjectURL(blob);
 
 const link =
 document.getElementById("download");
@@ -197,16 +137,10 @@ link.download = "names.js";
 
 link.style.display = "inline-block";
 
-link.style.marginTop = "20px";
+document.getElementById("status").innerText =
+"✅ 26,000 names ready!";
 
-link.innerText =
-"⬇️ Download names.js";
-
-alert(
-"26,000 names ready! Ab Download names.js par click karo."
-);
-
-}
+});
 
 </script>
 
